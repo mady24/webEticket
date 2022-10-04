@@ -67,8 +67,7 @@ if (!empty($_POST)) {
     $result = curl_exec($ch);
     curl_close($ch);
 }
-$result = file_get_contents("http://localhost/eticket/public/index.php/showBank/");
-$region = json_decode($result, true);
+
 ?>
 
 <div class="row">

@@ -10,6 +10,7 @@ if(empty($page)){
             case 'sB':$page = 'banque/suivi/index.php';break;
             case 'sE':$page = 'event/suivi/index.php';break;
             case 'admBank':$page = 'administration/banque/index.php';break;
+            case 'caisse':$page = 'caisse/index.php';break;
             default : $page = 'default/index.php';break;
         }
     }else{

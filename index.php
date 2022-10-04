@@ -1,5 +1,7 @@
 <?php
-    session_start();
+if(empty($_SESSION))session_start();
+    else print_r($_SESSION);
+    if(empty($_SESSION['user']))header('location: login.php');  
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -111,6 +113,11 @@
                     </div>
                 </div>
             </li>
+            <!--<li class="nav-item">
+                <a class="nav-link" href="index.php?rubrique=caisse">
+                    <i class="fas fa-fw fa-cash-register"></i>
+                    <span>Caisse</span></a>
+            </li>-->
 
             <!-- Divider -->
             <!--<hr class="sidebar-divider">-->
@@ -387,6 +394,7 @@
                 <div class="container-fluid bg-white" id='reservation'>
 
                     <?php
+                        print_r($_SESSION);
                         require_once 'ajax.php';
                         
 

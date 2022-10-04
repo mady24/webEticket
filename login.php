@@ -1,3 +1,36 @@
+<?php
+if(empty($_SESSION))session_start();
+if(!empty($_POST)){
+
+$cred = '{"login":"'.$_POST['login'].'","password":"'.$_POST['password'].'","app":"WEB_APP"}';
+
+$ch = curl_init( 'http://141.94.204.35:8080/eticket/auth/login' );
+# Setup request to send json via POST.
+curl_setopt( $ch, CURLOPT_POSTFIELDS, $cred );
+curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+# Return response instead of printing.
+curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+curl_setopt($ch, CURLOPT_HEADER, 1);
+# Send request.
+$result = curl_exec($ch);
+$header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+$header = substr($result, 0, $header_size);
+$body = substr($result, $header_size);
+curl_close($ch);
+echo substr($header, strrpos($header, 'refresh_token: ' )+15, 268);
+echo "\n".strlen("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhcHAiOiJXRUJfQVBQIiwic3ViIjoic3VwZXJhZG1pbiIsInJvbGVzIjpbIlNVUEVSX0FETUlOSVNUUkFUT1IiXSwiaXNzIjoiL2V0aWNrZXQvYXV0aC9sb2dpbiIsInVzZXJTZXNzaW9uQ3JlYXRlZCI6ZmFsc2UsImV4cCI6MTY1MjAwODQ0MH0.Kavu9xRW10ObwIzUcKnF0YHbKerfyDUpOnjJKj1NsTQ");
+//echo(json_encode($header));
+
+if(!empty($result)){
+    
+    $_SESSION['user'] = json_decode($result);
+   $acces_token = $_SESSION['user']->{"access_token"};
+    exit;
+    //header('location: index.php');
+}
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,15 +74,15 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
-                                    <form class="user">
+                                    <form class="user" action="login.php" method="post">
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user"
-                                                id="exampleInputEmail" aria-describedby="emailHelp"
+                                            <input type="text" class="form-control form-control-user"
+                                                id="exampleInputEmail" name="login" aria-describedby="emailHelp"
                                                 placeholder="Enter Email Address...">
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
-                                                id="exampleInputPassword" placeholder="Password">
+                                                id="exampleInputPassword" name="password" placeholder="Password">
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
@@ -58,9 +91,9 @@
                                                     Me</label>
                                             </div>
                                         </div>
-                                        <a href="index.html" class="btn btn-primary btn-user btn-block">
-                                            Login
-                                        </a>
+                                        <input type="submit" class="btn btn-primary btn-user btn-block" value=" Login">
+                                           
+                                      
                                         <hr>
                                         <a href="index.html" class="btn btn-google btn-user btn-block">
                                             <i class="fab fa-google fa-fw"></i> Login with Google
