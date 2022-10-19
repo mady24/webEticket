@@ -1,58 +1,68 @@
-<?php
-
-$result = file_get_contents("http://localhost/eticket/public/index.php/showBank/");
-$Data = json_decode($result, true);
+<?php 
+    if(empty($_SESSION))session_start();
+    if(empty($_SESSION['user']))header('location: login.php');
 ?>
-<div>
-    <form id="etape1">
-        <div class="form-row">
-            <div class="form-group col-md-12">
-                <input type="text" name="nom" class="w-100" id="nom" placeholder="chercher une banque" onkeyup="send1();" value="<?php echo @$_POST['nom']; ?>">
-            </div>
-        </div>
-    </form>
-</div>
-<div class="row p-0 m-0 y-auto">
-    <?php
-    echo @$_POST['nom'];
-        foreach($Data as $ID => $tb){
-            $div = '<div class="col-lg-4 col-md-6 col-sm-12" style="height: 200px !important; "  onclick="send('.$ID.');">
-            <div class="bg-white border rounded h-100 row m-2" style="border-color:primary !important; background-image: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)), url(img/'.$tb['image'].'); background-size:cover;">
-                <div class="col-12 m-auto text-center text-dark" style="font-size:50px;">
-                    '.$tb['nomBank'].'
-                </div>
-            </div>
-        </div>';
-            if(empty($_POST['nom']))echo $div;
-            else if(!empty($_POST['nom']) && stripos($tb['nomBank'],$_POST['nom']) !== false)echo $div;
-           
-        }
-    ?>
-    <!--<div class="col-lg-4 col-md-6 col-sm-12" style="height: 200px !important;">
-        <div class="bg-white border border-primary rounded h-100 row m-2">
-            <div class="col-6 m-auto">
-                <img src="" alt="CORIS BANK">
-            </div>
-            <div class="col-6 m-auto">
-                CORIS BANK
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4 col-md-6 col-sm-12" style="height: 200px !important;">
-        <div class="bg-white border border-danger rounded h-100 row m-2">
-            <div class="col-6 m-auto">
-                <img src="" alt="BHS">
-            </div>
-            <div class="col-6 m-auto">
-                BHS
-            </div>
-        </div>
-    </div>
-</div>-->
-<script>
+<!DOCTYPE html>
+<html lang="fr">
 
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Eticket</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="../../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="../../css/sb-admin-2.min.css" rel="stylesheet">
+    <script src="../../js/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+
+<?php
+echo'<div class="container-fluid bg-light">';
+    $header   = array();
+    $header[] = 'Authorization: Bearer ' . $_SESSION['access_token'];
+    $header[] = 'Content-Type:  application/json ';
+    // Affichage des banques
+    echo'<h1 class= " text-center mx-auto text-primary ">Liste des banques</h1>';
+    echo'<div class="row bg-light justify-center gy-3 d-flex shadow row-cols-4">';
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+        curl_setopt($ch,CURLOPT_URL,'https://api.eticket.sn/eticket/entity/findAllCompanies/SN/QUEUE_MANAGEMENT');
+        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+        $banque = curl_exec($ch);
+        if($e = curl_error($ch)){
+            echo $e;
+        }else{
+            $banque_array = json_decode($banque, true);
+            
+            foreach($banque_array as $key => $value){
+                    $no_images = array("0","1","4","6","9","10","13","14","15","17","18","19");
+                if(!in_array($key,$no_images)){
+                    echo '<a class="col card bg-light m-2 p-1 py-2 d-flex mx-auto flex-column-reverse align-items-center justify-evenly"  href="http://localhost/webEticket/banque/reservation/etape2.php?id='.$value[id].'" ><h4 class="text-white h6 rounded bg-primary p-2 my-1 " >Réserver un ticket</h4> <img src='.$value[logoUrl].' class="img-fluid card-img-top w-75"/></a>'; 
+                }
+                
+            }
+        }
+        curl_close($ch);
+    echo'</div>';
+
+                        
+echo"</div>";
+?>
+<script>
 var form = jQuery('#etape1');
-    
+   
     function send(id){
         var url = 'ajax.php?rubrique=<?php echo @$_SESSION['rubrique']; ?>&etape=etape2&id='+id;
             $.ajax({
@@ -80,3 +90,7 @@ var form = jQuery('#etape1');
             });
         }
 </script>
+</body>
+</html>
+    
+

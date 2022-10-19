@@ -11,13 +11,12 @@ if(empty($page)){
             case 'sE':$page = 'event/suivi/index.php';break;
             case 'admBank':$page = 'administration/banque/index.php';break;
             case 'caisse':$page = 'caisse/index.php';break;
-            default : $page = 'default/index.php';break;
+            default : $page = 'banque/reservation/index.php';break;
         }
     }else{
-        $page = 'default/index.php';
+        $page = 'banque/reservation/index.php';
     }
-}
-
+}   
 require_once $page;
 
 ?>

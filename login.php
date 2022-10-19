@@ -1,10 +1,12 @@
+
 <?php
 if(empty($_SESSION))session_start();
 if(!empty($_POST)){
 
-$cred = '{"login":"'.$_POST['login'].'","password":"'.$_POST['password'].'","app":"WEB_APP"}';
+$cred = '{"login":"'.$_POST['login'].'","password":"'.$_POST['password'].'","app":"MOBILE_APP"}';
 
-$ch = curl_init( 'http://141.94.204.35:8080/eticket/auth/login' );
+ 
+$ch = curl_init( 'https://api.eticket.sn/eticket/auth/login' );
 # Setup request to send json via POST.
 curl_setopt( $ch, CURLOPT_POSTFIELDS, $cred );
 curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
@@ -16,17 +18,44 @@ $result = curl_exec($ch);
 $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
 $header = substr($result, 0, $header_size);
 $body = substr($result, $header_size);
+$http_code = curl_getinfo($ch,CURLINFO_HTTP_CODE);
+
 curl_close($ch);
-echo substr($header, strrpos($header, 'refresh_token: ' )+15, 268);
-echo "\n".strlen("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhcHAiOiJXRUJfQVBQIiwic3ViIjoic3VwZXJhZG1pbiIsInJvbGVzIjpbIlNVUEVSX0FETUlOSVNUUkFUT1IiXSwiaXNzIjoiL2V0aWNrZXQvYXV0aC9sb2dpbiIsInVzZXJTZXNzaW9uQ3JlYXRlZCI6ZmFsc2UsImV4cCI6MTY1MjAwODQ0MH0.Kavu9xRW10ObwIzUcKnF0YHbKerfyDUpOnjJKj1NsTQ");
+// echo substr($header, strrpos($header, 'refresh_token: ' )+15, 268).'<br>';
+// echo "\n".strlen("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhcHAiOiJXRUJfQVBQIiwic3ViIjoic3VwZXJhZG1pbiIsInJvbGVzIjpbIlNVUEVSX0FETUlOSVNUUkFUT1IiXSwiaXNzIjoiL2V0aWNrZXQvYXV0aC9sb2dpbiIsInVzZXJTZXNzaW9uQ3JlYXRlZCI6ZmFsc2UsImV4cCI6MTY1MjAwODQ0MH0.Kavu9xRW10ObwIzUcKnF0YHbKerfyDUpOnjJKj1NsTQ").'<br>';
 //echo(json_encode($header));
 
-if(!empty($result)){
+if($http_code === 200){
+    echo "Code de la reponse".$http_code;
+    $body_array = json_decode($body,true);
+    $header_array = explode(":",$header);
+
+    $id = $body_array[0][id];
     
-    $_SESSION['user'] = json_decode($result);
-   $acces_token = $_SESSION['user']->{"access_token"};
-    exit;
-    //header('location: index.php');
+
+    $access_token = str_replace("Expires",'',$header_array[8]) ;
+    echo"<br><br>Token ".$access_token;
+    echo"Not empty";
+
+    //GET SESSION DATA
+    $ch = curl_init( 'https://api.eticket.sn/eticket/auth/getSessionData/'.$id );
+    curl_setopt($ch,CURLOPT_URL,'https://api.eticket.sn/eticket/auth/getSessionData/'.$id);
+    curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+
+	$header   = array();
+	$header[] = 'Authorization: Bearer ' . $access_token;
+	$header[] = 'Content-Type:  application/json ';
+	curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+    $session_data = curl_exec($ch);
+    curl_close($ch);
+    
+    $_SESSION['access_token'] = $access_token;
+    $_SESSION['user'] = $session_data;
+  
+    header('location: index.php');
+
+}else{
+    echo"<mark>Les données saisies sont incorrectes</mark>";
 }
 }
 

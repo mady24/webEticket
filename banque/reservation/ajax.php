@@ -9,6 +9,5 @@ if(!empty($_GET['etape'])){
         case 'etape5': $page =  'banque/reservation/etape5.php';break;
     }
 }else $page = 'banque/reservation/etape1.php';
-
 require_once $page;
 ?>

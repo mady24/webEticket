@@ -1,7 +1,9 @@
 <?php
 if(empty($_SESSION))session_start();
-    else print_r($_SESSION);
     if(empty($_SESSION['user']))header('location: login.php');  
+    $user_data = new stdclass;
+    $user_data = json_decode($_SESSION["user"]); 
+    $username = $user_data->{"entityName"};
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -36,7 +38,7 @@ if(empty($_SESSION))session_start();
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -71,7 +73,7 @@ if(empty($_SESSION))session_start();
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Banque:</h6>
-                        <a class="collapse-item" href="index.php?rubrique=tB">R�servation</a>
+                        <a class="collapse-item" href="index.php?rubrique=tB">Réservation</a>
                         <a class="collapse-item" href="index.php?rubrique=sB">Suivi</a>
                     </div>
                 </div>
@@ -88,7 +90,7 @@ if(empty($_SESSION))session_start();
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Evenement:</h6>
-                        <a class="collapse-item" href="index.php?rubrique=tE">R�servation</a>
+                        <a class="collapse-item" href="index.php?rubrique=tE">Réservation</a>
                         <a class="collapse-item" href="index.php?rubrique=sE">Suivi</a>
                         <!--<a class="collapse-item" href="utilities-animation.html">Animations</a>
                         <a class="collapse-item" href="utilities-other.html">Other</a>-->
@@ -97,22 +99,7 @@ if(empty($_SESSION))session_start();
             </li>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdmin"
-                    aria-expanded="true" aria-controls="collapseAdmin">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Administration</span>
-                </a>
-                <div id="collapseAdmin" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Administration:</h6>
-                        <a class="collapse-item" href="index.php?rubrique=admBank&etape=region">Region</a>
-                        <a class="collapse-item" href="index.php?rubrique=admBank&etape=bank">Banque</a>
-                        <a class="collapse-item" href="index.php?rubrique=admBank&etape=agence">Agence</a>
-                        <a class="collapse-item" href="index.php?rubrique=admBank&etape=file">File d'attente</a>
-                    </div>
-                </div>
-            </li>
+           
             <!--<li class="nav-item">
                 <a class="nav-link" href="index.php?rubrique=caisse">
                     <i class="fas fa-fw fa-cash-register"></i>
@@ -174,7 +161,7 @@ if(empty($_SESSION))session_start();
             <div class="sidebar-card d-none d-lg-flex">
                 <p class="text-center mb-2"><strong>L'application Mobile</strong> est disponible!</p>
                 <a class="btn btn-dark btn-sm" href="#"><i class="fab fa-google-play fa-fw fa-lg mr-2"></i>Play Store</a>
-                <a class="btn btn-dark btn-sm mt-2 aligne-items-middle" href="#"><i class="fab fa-app-store-ios fa-fw fa-lg mr-2"></i>App Store</a>
+                <!-- <a class="btn btn-dark btn-sm mt-2 aligne-items-middle" href="#"><i class="fab fa-app-store-ios fa-fw fa-lg mr-2"></i>App Store</a> -->
             </div>
 
         </ul>
@@ -358,7 +345,7 @@ if(empty($_SESSION))session_start();
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $username?></span>
                                 <img class="img-profile rounded-circle"
                                     src="img/undraw_profile.svg">
                             </a>
@@ -391,11 +378,92 @@ if(empty($_SESSION))session_start();
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid bg-white" id='reservation'>
+                <div class="container-fluid bg-white " id='reservation'>
 
                     <?php
-                        print_r($_SESSION);
-                        require_once 'ajax.php';
+                       require_once './ajax.php';
+                       require_once $page;
+
+                        // print_r("Données de l'utilisateur <pre>".$_SESSION["user"].'</pre>');
+
+                        //Header settings
+                        // $header   = array();
+                        // $header[] = 'Authorization: Bearer ' . $_SESSION['access_token'];
+                        // $header[] = 'Content-Type:  application/json ';
+
+                        //Affichage des banques
+                        // if ($_GET['rubrique']=="tB" && $_GET['etape']=="") {
+                        //     echo'<h1 class= " text-center mx-auto text-primary ">Liste des banques</h1>';
+                        //     echo'<div class="row bg-light justify-center gy-3 d-flex shadow row-cols-4">';
+                        //         $ch = curl_init();
+                        //         curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+                        //         curl_setopt($ch,CURLOPT_URL,'https://api.eticket.sn/eticket/entity/findAllCompanies/SN/QUEUE_MANAGEMENT');
+                        //         curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+                        //         curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+                        //         $banque = curl_exec($ch);
+                        //         if($e = curl_error($ch)){
+                        //             echo $e;
+                        //         }else{
+                        //             $banque_array = json_decode($banque, true);
+                                    
+                        //             foreach($banque_array as $key => $value){
+                        //                 $no_images = array("0","1","4","6","9","10","13","14","15","17","18","19");
+                        //                 if(!in_array($key,$no_images)){
+                        //                     echo '<div class="col card bg-light  p-1 py-2 d-flex mx-auto flex-column-reverse align-items-center justify-evenly "><a class="text-white h6 rounded bg-primary p-2 my-1 " href="index.php?rubrique=tB&etape=agence&id='.$value[id].'">Voir les agences</a> <img src='.$value[logoUrl].' class="img-fluid card-img-top w-75"/></div>'; 
+                        //                 }
+                                        
+                        //             }
+                        //         }
+                        //         curl_close($ch);
+                        //     echo'</div>';
+                        // }
+                        // //Affichage des agences de chaque banque     
+                        // if ($_GET['rubrique']=="tB" && $_GET['etape']=="agence") {
+                        //     echo'<h1 class= " text-center mx-auto text-primary ">Liste des agences</h1>';
+                        //     echo'<div class="row bg-light justify-center gy-3 d-flex  row-cols-4 shadow ">';
+                        //     $ch = curl_init();
+                        //     curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+                        //     curl_setopt($ch,CURLOPT_URL,'https://api.eticket.sn/eticket/entity/findAllAgencies/'.$_GET["id"].'/QUEUE_MANAGEMENT');
+                        //     curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+                        //     curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+                        //     $agence = curl_exec($ch);
+                        //     if($e = curl_error($ch)){
+                        //         echo $e;
+                        //     }else{
+                        //         $agence_array = json_decode($agence, true);
+                                
+                        //         foreach($agence_array as $key => $value){
+                        //                 echo '<div class="col card bg-light  p-1 py-2 d-flex mx-auto flex-column align-items-center justify-evenly "><span class="text-primary h5 rounded  p-2 ">'.$value[name].'</span><a class="text-white h6 rounded bg-primary p-2 my-1 " href="index.php?rubrique=tB&etape=service&id='.$value[id].'">Voir les services</a> </div>';                                     
+                        //         }
+                        //     }
+                        //     curl_close($ch);
+                        // echo'</div>';
+                        // }
+                        // //Affichage des services de chaque agence
+                        // if ($_GET['rubrique']=="tB" && $_GET['etape']=="service") {
+                        //     echo'<h1 class= " text-center mx-auto text-primary ">Liste des services</h1>';
+                        //     echo'<div class="row bg-light justify-center gy-3 d-flex  row-cols-4 shadow ">';
+                        //     $ch = curl_init();
+                        //     curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+                        //     curl_setopt($ch,CURLOPT_URL,'https://api.eticket.sn/eticket/entity/findAllService/'.$_GET["id"].'/QUEUE_MANAGEMENT');
+                        //     curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+                        //     curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+                        //     $service = curl_exec($ch);
+                        //     if($e = curl_error($ch)){
+                        //         echo $e;
+                        //     }else{
+                        //         $service_array = json_decode($service, true);
+                                
+                        //         foreach($service_array as $key => $value){
+                        //                 echo '<div class="col-12  card bg-light  p-1 py-2 d-flex mx-auto flex-column align-items-center justify-evenly "><span class="text-primary h5 rounded  p-2 ">'.$value[name].'</span> </div>';                                     
+                        //         }
+                        //     }
+                        //     curl_close($ch);
+                        // echo'</div>';
+
+                        // }
+            
+
                         
 
 
@@ -412,7 +480,7 @@ if(empty($_SESSION))session_start();
             <!-- End of Main Content -->
 
             <!-- Footer -->
-            <footer class="sticky-footer bg-white text-center ml-auto" style="position: absolute; bottom:0; left:50%">
+            <footer class="fixed-footer  bg-white text-center ml-auto" style="position: absolute; bottom:0; left:50%">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
                         <span>Copyright &copy; RoyalTech 2021</span>

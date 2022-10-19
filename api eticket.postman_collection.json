@@ -1,0 +1,386 @@
+{
+	"info": {
+		"_postman_id": "0b8564c5-1c9c-4018-ba1d-9c42af946f6e",
+		"name": "api eticket",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://141.94.204.35:8080/eticket/entity/addCompany",
+			"request": {
+				"auth": {
+					"type": "bearer"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"activityId\": 1,\r\n  \"countryCode\": \"SN\",\r\n  \"id\": 1,\r\n  \"name\": \"ECOBANK\",\r\n  \"services\": [\r\n    {\r\n      \"agencyId\": 1,\r\n      \"category\": \"QUEUE_MANAGEMENT\",\r\n      \"id\": 1,\r\n      \"name\": \"string\",\r\n      \"parentId\": 1,\r\n      \"price\": 500,\r\n      \"properties\": {\r\n        \"additionalProp1\": {},\r\n        \"additionalProp2\": {},\r\n        \"additionalProp3\": {}\r\n      },\r\n      \"queueSettings\": \"string\",\r\n      \"status\": {},\r\n      \"ticketPrefix\": {},\r\n      \"type\": \"GROUP\"\r\n    }\r\n  ],\r\n  \"status\": {},\r\n  \"usePublicHolidays\": {}\r\n}"
+				},
+				"url": {
+					"raw": "http://141.94.204.35:8080/eticket/entity/addCompany",
+					"protocol": "http",
+					"host": [
+						"141",
+						"94",
+						"204",
+						"35"
+					],
+					"port": "8080",
+					"path": [
+						"eticket",
+						"entity",
+						"addCompany"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://api.eticket.sn/eticket/auth/login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"login\":\"221774561057\",\"password\":\"76629\",\"app\":\"MOBILE_APP\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.eticket.sn/eticket/auth/login",
+					"protocol": "https",
+					"host": [
+						"api",
+						"eticket",
+						"sn"
+					],
+					"path": [
+						"eticket",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://141.94.204.35:8080/eticket/auth/getSessionData/101",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhcHAiOiJNT0JJTEVfQVBQIiwic3ViIjoiMjIxNzc0NTYxMDU3Iiwicm9sZXMiOlsiQ0xJRU5UIl0sImlzcyI6Ii9ldGlja2V0L2F1dGgvbG9naW4iLCJ1c2VyU2Vzc2lvbkNyZWF0ZWQiOmZhbHNlLCJleHAiOjE2NjE3MTE0MjN9.LxtumXQIbXr0i1hU0X5NtGFnLrST2FAebgZHLso4EJA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://141.94.204.35:8080/eticket/auth/getSessionData/101",
+					"protocol": "http",
+					"host": [
+						"141",
+						"94",
+						"204",
+						"35"
+					],
+					"port": "8080",
+					"path": [
+						"eticket",
+						"auth",
+						"getSessionData",
+						"101"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://api.eticket.sn/eticket/entity/findAllCountries",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhcHAiOiJXRUJfQVBQIiwic3ViIjoic3VwZXJhZG1pbiIsInJvbGVzIjpbIlNVUEVSX0FETUlOSVNUUkFUT1IiXSwiaXNzIjoiL2V0aWNrZXQvYXV0aC9sb2dpbiIsInVzZXJTZXNzaW9uQ3JlYXRlZCI6ZmFsc2UsImV4cCI6MTY1Mzg0NDA2MH0.FkSsY4x7sPOjYOvZOpyYTRqBItV4xfvvFWIwEhJ-Svw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://api.eticket.sn/eticket/entity/findAllCountries",
+					"protocol": "https",
+					"host": [
+						"api",
+						"eticket",
+						"sn"
+					],
+					"path": [
+						"eticket",
+						"entity",
+						"findAllCountries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://api.eticket.sn/eticket/entity/findAllCompanies/SN/QUEUE_MANAGEMENT",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhcHAiOiJNT0JJTEVfQVBQIiwic3ViIjoiMjIxNzc0NTYxMDU3Iiwicm9sZXMiOlsiQ0xJRU5UIl0sImlzcyI6Ii9ldGlja2V0L2F1dGgvbG9naW4iLCJ1c2VyU2Vzc2lvbkNyZWF0ZWQiOmZhbHNlLCJleHAiOjE2NTUzMTg2ODh9.t8-G_a5_lwu-r2izqiW2eHxU_4xEuMlh4_neNSm70cM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.eticket.sn/eticket/entity/findAllCompanies/SN/QUEUE_MANAGEMENT",
+					"protocol": "https",
+					"host": [
+						"api",
+						"eticket",
+						"sn"
+					],
+					"path": [
+						"eticket",
+						"entity",
+						"findAllCompanies",
+						"SN",
+						"QUEUE_MANAGEMENT"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://api.eticket.sn/eticket/entity/findAllAgencies/25/QUEUE_MANAGEMENT",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhcHAiOiJXRUJfQVBQIiwic3ViIjoic3VwZXJhZG1pbiIsInJvbGVzIjpbIlNVUEVSX0FETUlOSVNUUkFUT1IiXSwiaXNzIjoiL2V0aWNrZXQvYXV0aC9sb2dpbiIsInVzZXJTZXNzaW9uQ3JlYXRlZCI6ZmFsc2UsImV4cCI6MTY1NDIwMjMwNn0.JkW6Ih_T54e9qHLhy73SjFHsTMZ6iUPxcjLSpklZsac",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.eticket.sn/eticket/entity/findAllAgencies/25/QUEUE_MANAGEMENT",
+					"protocol": "https",
+					"host": [
+						"api",
+						"eticket",
+						"sn"
+					],
+					"path": [
+						"eticket",
+						"entity",
+						"findAllAgencies",
+						"25",
+						"QUEUE_MANAGEMENT"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://api.eticket.sn/eticket/entity/findAllCountries",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhcHAiOiJXRUJfQVBQIiwic3ViIjoic3VwZXJhZG1pbiIsInJvbGVzIjpbIlNVUEVSX0FETUlOSVNUUkFUT1IiXSwiaXNzIjoiL2V0aWNrZXQvYXV0aC9sb2dpbiIsInVzZXJTZXNzaW9uQ3JlYXRlZCI6ZmFsc2UsImV4cCI6MTY1NDIwMTYyNn0.NBS7VB9HncoJJOJjkNdGNF5vNIkcFYRzHKiTqliW5Io",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.eticket.sn/eticket/entity/findAllCountries",
+					"protocol": "https",
+					"host": [
+						"api",
+						"eticket",
+						"sn"
+					],
+					"path": [
+						"eticket",
+						"entity",
+						"findAllCountries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://api.eticket.sn/eticket/entity/findRegions/SN",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhcHAiOiJXRUJfQVBQIiwic3ViIjoic3VwZXJhZG1pbiIsInJvbGVzIjpbIlNVUEVSX0FETUlOSVNUUkFUT1IiXSwiaXNzIjoiL2V0aWNrZXQvYXV0aC9sb2dpbiIsInVzZXJTZXNzaW9uQ3JlYXRlZCI6ZmFsc2UsImV4cCI6MTY1NDIwMTYyNn0.NBS7VB9HncoJJOJjkNdGNF5vNIkcFYRzHKiTqliW5Io",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.eticket.sn/eticket/entity/findRegions/SN",
+					"protocol": "https",
+					"host": [
+						"api",
+						"eticket",
+						"sn"
+					],
+					"path": [
+						"eticket",
+						"entity",
+						"findRegions",
+						"SN"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://api.eticket.sn/eticket/entity/findAllService/86/QUEUE_MANAGEMENT",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhcHAiOiJNT0JJTEVfQVBQIiwic3ViIjoiMjIxNzc0NTYxMDU3Iiwicm9sZXMiOlsiQ0xJRU5UIl0sImlzcyI6Ii9ldGlja2V0L2F1dGgvbG9naW4iLCJ1c2VyU2Vzc2lvbkNyZWF0ZWQiOmZhbHNlLCJleHAiOjE2NTU2NTc4Mzd9.8iqvW9Y6fMYwCEVjZ4c9x4_AiX3nh9sdC3BSnfcKfrY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.eticket.sn/eticket/entity/findAllService/86/QUEUE_MANAGEMENT",
+					"protocol": "https",
+					"host": [
+						"api",
+						"eticket",
+						"sn"
+					],
+					"path": [
+						"eticket",
+						"entity",
+						"findAllService",
+						"86",
+						"QUEUE_MANAGEMENT"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://api.eticket.sn/eticket/entity/findAllPaymentPartners/SN",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhcHAiOiJNT0JJTEVfQVBQIiwic3ViIjoiMjIxNzc0NTYxMDU3Iiwicm9sZXMiOlsiQ0xJRU5UIl0sImlzcyI6Ii9ldGlja2V0L2F1dGgvbG9naW4iLCJ1c2VyU2Vzc2lvbkNyZWF0ZWQiOmZhbHNlLCJleHAiOjE2NjA1MDA0MTh9.8suLxnZNAMaqhdXfKj0WCkY4xb0KyaJg-YLm_dbcLI4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.eticket.sn/eticket/entity/findAllPaymentPartners/SN",
+					"protocol": "https",
+					"host": [
+						"api",
+						"eticket",
+						"sn"
+					],
+					"path": [
+						"eticket",
+						"entity",
+						"findAllPaymentPartners",
+						"SN"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://api.eticket.sn/eticket/service/getPaymentTicket",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhcHAiOiJNT0JJTEVfQVBQIiwic3ViIjoiMjIxNzc0NTYxMDU3Iiwicm9sZXMiOlsiQ0xJRU5UIl0sImlzcyI6Ii9ldGlja2V0L2F1dGgvZ2V0U2Vzc2lvbkRhdGEvMTAxIiwidXNlclNlc3Npb25DcmVhdGVkIjp0cnVlLCJleHAiOjE2NjQzMDI1NDcsInVzZXJTZXNzaW9uSWQiOjE5Mzh9.ouAN0KF8NaZI5DiEzMjl3uMTiknjn570t7wKuy6F7mM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"paymentAccount\":{\r\n    \"type\":\"MOBILE_MONEY\",\r\n    \"errorUrl\":\"https://redirect.eticket.sn\",\r\n    \"paymentPartnerId\":\"120\",\r\n    \"successUrl\":\"https://redirect.eticket.sn\"\r\n    },\r\n    \"serviceId\":\"94\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.eticket.sn/eticket/service/getPaymentTicket",
+					"protocol": "https",
+					"host": [
+						"api",
+						"eticket",
+						"sn"
+					],
+					"path": [
+						"eticket",
+						"service",
+						"getPaymentTicket"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
