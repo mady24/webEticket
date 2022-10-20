@@ -97,7 +97,7 @@
         <label for="agence">Agence</label>
         <select id="agence" name="agence" class="form-control">
             <?php
-            foreach($tbAgence as $ID => $tb)echo "<option value='".$ID."'>".$tb['nomAgence']."</option>";
+            foreach($agences_array as $ID => $tb)echo "<option value='".$ID."'>".$tb['nomAgence']."</option>";
             ?>
       </select>
         </div>

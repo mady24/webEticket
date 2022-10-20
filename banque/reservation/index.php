@@ -1,8 +1,8 @@
 
 <?php
-    echo getcwd();   
+    echo getcwd();
 
-    require_once './ajax.php';
+    require_once 'banque/reservation/ajax.php';
     require_once $page;
 
 
