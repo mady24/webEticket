@@ -1,5 +1,4 @@
 <?php
-echo "api";
 if(!empty($_GET['etape'])){
     switch($_GET['etape']){
         case 'etape1': $page = 'banque/reservation/etape1.php';break;

@@ -39,10 +39,10 @@ if(empty($_SESSION))session_start();
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+                <div class="sidebar-brand-icon  ">
+                    <img src="./img/400PngdpiLogoCropped.png " class="img-fluid w-50"></img>
                 </div>
-                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+                <div class=" mx-3 ">E-ticket </div>
             </a>
 
             <!-- Divider -->
@@ -383,86 +383,6 @@ if(empty($_SESSION))session_start();
                     <?php
                        require_once './ajax.php';
                        require_once $page;
-
-                        // print_r("Données de l'utilisateur <pre>".$_SESSION["user"].'</pre>');
-
-                        //Header settings
-                        // $header   = array();
-                        // $header[] = 'Authorization: Bearer ' . $_SESSION['access_token'];
-                        // $header[] = 'Content-Type:  application/json ';
-
-                        //Affichage des banques
-                        // if ($_GET['rubrique']=="tB" && $_GET['etape']=="") {
-                        //     echo'<h1 class= " text-center mx-auto text-primary ">Liste des banques</h1>';
-                        //     echo'<div class="row bg-light justify-center gy-3 d-flex shadow row-cols-4">';
-                        //         $ch = curl_init();
-                        //         curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
-                        //         curl_setopt($ch,CURLOPT_URL,'https://api.eticket.sn/eticket/entity/findAllCompanies/SN/QUEUE_MANAGEMENT');
-                        //         curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-                        //         curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
-                        //         $banque = curl_exec($ch);
-                        //         if($e = curl_error($ch)){
-                        //             echo $e;
-                        //         }else{
-                        //             $banque_array = json_decode($banque, true);
-                                    
-                        //             foreach($banque_array as $key => $value){
-                        //                 $no_images = array("0","1","4","6","9","10","13","14","15","17","18","19");
-                        //                 if(!in_array($key,$no_images)){
-                        //                     echo '<div class="col card bg-light  p-1 py-2 d-flex mx-auto flex-column-reverse align-items-center justify-evenly "><a class="text-white h6 rounded bg-primary p-2 my-1 " href="index.php?rubrique=tB&etape=agence&id='.$value[id].'">Voir les agences</a> <img src='.$value[logoUrl].' class="img-fluid card-img-top w-75"/></div>'; 
-                        //                 }
-                                        
-                        //             }
-                        //         }
-                        //         curl_close($ch);
-                        //     echo'</div>';
-                        // }
-                        // //Affichage des agences de chaque banque     
-                        // if ($_GET['rubrique']=="tB" && $_GET['etape']=="agence") {
-                        //     echo'<h1 class= " text-center mx-auto text-primary ">Liste des agences</h1>';
-                        //     echo'<div class="row bg-light justify-center gy-3 d-flex  row-cols-4 shadow ">';
-                        //     $ch = curl_init();
-                        //     curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
-                        //     curl_setopt($ch,CURLOPT_URL,'https://api.eticket.sn/eticket/entity/findAllAgencies/'.$_GET["id"].'/QUEUE_MANAGEMENT');
-                        //     curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-                        //     curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
-                        //     $agence = curl_exec($ch);
-                        //     if($e = curl_error($ch)){
-                        //         echo $e;
-                        //     }else{
-                        //         $agence_array = json_decode($agence, true);
-                                
-                        //         foreach($agence_array as $key => $value){
-                        //                 echo '<div class="col card bg-light  p-1 py-2 d-flex mx-auto flex-column align-items-center justify-evenly "><span class="text-primary h5 rounded  p-2 ">'.$value[name].'</span><a class="text-white h6 rounded bg-primary p-2 my-1 " href="index.php?rubrique=tB&etape=service&id='.$value[id].'">Voir les services</a> </div>';                                     
-                        //         }
-                        //     }
-                        //     curl_close($ch);
-                        // echo'</div>';
-                        // }
-                        // //Affichage des services de chaque agence
-                        // if ($_GET['rubrique']=="tB" && $_GET['etape']=="service") {
-                        //     echo'<h1 class= " text-center mx-auto text-primary ">Liste des services</h1>';
-                        //     echo'<div class="row bg-light justify-center gy-3 d-flex  row-cols-4 shadow ">';
-                        //     $ch = curl_init();
-                        //     curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
-                        //     curl_setopt($ch,CURLOPT_URL,'https://api.eticket.sn/eticket/entity/findAllService/'.$_GET["id"].'/QUEUE_MANAGEMENT');
-                        //     curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-                        //     curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
-                        //     $service = curl_exec($ch);
-                        //     if($e = curl_error($ch)){
-                        //         echo $e;
-                        //     }else{
-                        //         $service_array = json_decode($service, true);
-                                
-                        //         foreach($service_array as $key => $value){
-                        //                 echo '<div class="col-12  card bg-light  p-1 py-2 d-flex mx-auto flex-column align-items-center justify-evenly "><span class="text-primary h5 rounded  p-2 ">'.$value[name].'</span> </div>';                                     
-                        //         }
-                        //     }
-                        //     curl_close($ch);
-                        // echo'</div>';
-
-                        // }
-            
 
                         
 

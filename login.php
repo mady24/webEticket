@@ -30,7 +30,7 @@ if($http_code === 200){
     $body_array = json_decode($body,true);
     $header_array = explode(":",$header);
 
-    $id = $body_array[0][id];
+    $id = $body_array[0]['id'];
     
 
     $access_token = str_replace("Expires",'',$header_array[8]) ;

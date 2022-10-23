@@ -30,10 +30,10 @@
 <body>
 
 
-<div class="container-fluid bg-light">
+<div class="container-fluid ">
     <?php
-echo'<h1 class= " text-center mx-auto text-primary my-2">Moyens de paiement</h1>';
-                echo'<div class="row bg-light justify-center gy-3 d-flex shadow row-cols-4">';
+echo'<h1 class= " text-center mx-auto text-primary my-2">Choisir le mode de paiement</h1>';
+                echo'<div class="row  justify-center gy-3 d-flex shadow row-cols-4">';
                     $ch = curl_init();
                     $header   = array();
                     $header[] = 'Authorization: Bearer ' . $_SESSION['access_token'];
@@ -49,7 +49,7 @@ echo'<h1 class= " text-center mx-auto text-primary my-2">Moyens de paiement</h1>
                     }else{
                         $payement_array = json_decode($payement, true);
                         foreach($payement_array as $key => $value){
-                            echo '<a class="col card bg-light m-2 p-1 py-2 d-flex mx-auto flex-column-reverse align-items-center justify-evenly"  href="#" ><h4 class="text-white h6 rounded bg-primary p-2 my-1 " >Payez avec '.$value[name].'</h4> <img src='.$value[logoUrl].' class="img-fluid card-img-top w-75 my-3"/></a>'; 
+                            echo '<a class="col card bg-light m-2 shadow p-1 py-2 d-flex mx-auto flex-column-reverse align-items-center justify-evenly"  href="#" ><h4 class="text-white h6 rounded bg-primary p-2 my-1 " >Payez avec '.$value[name].'</h4> <img src='.$value[logoUrl].' class="img-fluid card-img-top w-75 my-3"/></a>'; 
                         }
                     }
                     curl_close($ch);
