@@ -12,3 +12,4 @@ print_r($url);
 $ch = curl_init($url);
 $result = curl_exec($ch);
 curl_close($ch);
+?>

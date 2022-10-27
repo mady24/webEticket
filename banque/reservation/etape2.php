@@ -1,6 +1,11 @@
 <?php 
     if(empty($_SESSION))session_start();
     if(empty($_SESSION['user'])){header('location: login.php');}else{
+
+        $_SESSION['ID'] = $_POST['region'];
+        $_SESSION['agence_id'] = $_POST['agence'];
+
+        if(empty($_SESSION['banque_id'])){$_SESSION['banque_id'] = $_GET['id'];};
         //Récupération des regions
         $header   = array();
         $header[] = 'Authorization: Bearer ' . $_SESSION['access_token'];
@@ -19,13 +24,14 @@
         curl_close($ch);
     }
     // Récupération des agences de la region     
+    if(!empty($_POST['region'])){
         $header   = array();
         $header[] = 'Authorization: Bearer ' . $_SESSION['access_token'];
         $header[] = 'Content-Type:  application/json ';
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
-        curl_setopt($ch,CURLOPT_URL,'https://api.eticket.sn/eticket/entity/findAllAgencies/'.$_GET["id"].'/QUEUE_MANAGEMENT'."/".$_POST['region']);
+        curl_setopt($ch,CURLOPT_URL,"https://api.eticket.sn/eticket/entity/findAllAgencies/".$_SESSION['banque_id']."/QUEUE_MANAGEMENT"."/".$_POST['region']);
         curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
         curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
         $agences = curl_exec($ch);
@@ -33,10 +39,26 @@
             echo $e;
         }else{
             $agences_array = json_decode($agences, true);
-            print_r($agences_array);
         }
-    curl_close($ch);
-
+        curl_close($ch);
+    }
+    if(!empty($_POST['agence'])){
+        $header   = array();
+        $header[] = 'Authorization: Bearer ' . $_SESSION['access_token'];
+        $header[] = 'Content-Type:  application/json ';
+        $ch = curl_init();
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+            curl_setopt($ch,CURLOPT_URL,'https://api.eticket.sn/eticket/entity/findAllService/'.$_SESSION["agence_id"].'/QUEUE_MANAGEMENT');
+            curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+            curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+            $service = curl_exec($ch);
+            if($e = curl_error($ch)){
+                echo $e;
+            }else{
+                $service_array = json_decode($service, true);
+            }
+            curl_close($ch);
+        }
 
 ?>
 <!DOCTYPE html>
@@ -65,16 +87,8 @@
 <body>
 
 
-<div class="container-fluid bg-light">
-    <!-- //Get Regions
- 
-        
-    // if(!empty($_POST['region'])){
-    // $result = file_get_contents("http://localhost/eticket/public/index.php/showAgenceByBankRegion/".$_GET['id']."/".$_POST['region']);
-    // $tbAgence = json_decode($result, true);
-    // }
-    // else $tbAgence = array(); -->
-    
+<div class="container-fluid bg-light py-2">
+<?php echo'<h1 class= " text-center mx-auto text-primary my-2">Reservez un ticket</h1>';?>
 <hr>
 <form id='etape1'>
     <div class="form-row">
@@ -84,8 +98,9 @@
                 <option value="0">...</option>
                 <?php
             foreach($regions_array as $ID => $tb){
-                if($ID == $_POST['region'])echo "<option selected value='".$ID."'>".$tb['name']."</option>";
-                else echo "<option value='".$tb['id']."'>".$tb['name']."</option>";
+                if($tb[id] == $_POST['region'])
+                echo "<option selected value='".$tb[id]."'>".$tb[name]."</option>";
+                else echo "<option value='".$tb[id]."'>".$tb[name]."</option>";
                 
             }
 
@@ -95,9 +110,15 @@
         </div>
         <div class="form-group col-md-6">
         <label for="agence">Agence</label>
-        <select id="agence" name="agence" class="form-control">
+        <select id="agence" name="agence" class="form-control" onchange='send2();' value='<?php echo $_POST['agence'];?>'>
+            <option value="0">...</option>
             <?php
-            foreach($agences_array as $ID => $tb)echo "<option value='".$ID."'>".$tb['nomAgence']."</option>";
+            foreach($agences_array as $ID => $tb){
+                if($tb[id] == $_POST['agence'])
+                echo "<option selected value='".$tb[id]."'>".$tb[name]."</option>";
+                else echo "<option value='".$tb[id]."'>".$tb[name]."</option>";
+                
+            }
             ?>
       </select>
         </div>
@@ -105,7 +126,14 @@
       <label for="service">Service</label>
       <select id="service" name='service' class="form-control">
         <option selected>Caisse</option>
-        <option>...</option>
+        <?php
+            foreach($service_array as $ID => $tb){
+                if($tb[id] == $_POST['agence'])
+                echo "<option selected value='".$tb[id]."'>".$tb[name]."</option>";
+                else echo "<option value='".$tb[id]."'>".$tb[name];
+            }
+        ?>
+
       </select>
     </div>
     <div class="form-group col-md-6">
@@ -113,15 +141,12 @@
     <input type="date" class="form-control" id="date" name="date" placeholder="1234 Main St">
   </div>
     </div>
-    <div class="btn btn-primary" onclick="send1();">Valider</div>
+    <div class="btn btn-primary w-100 mt-4" onclick="send1();">Valider</div>
 </form>
 </div>
 
 
 <script> 
-var select = document.getElementById('region');
-var selectedRegion = select.options[select.selectedIndex].value;
-console.log(selectedRegion);
   
 var form = jQuery('#etape1');
     
@@ -137,7 +162,20 @@ var form = jQuery('#etape1');
                     //alert(data); // show response from the php script.
                 }
             });
-        }
+    }
+    function send2(){
+        var url = 'ajax.php?rubrique=<?php echo @$_SESSION['rubrique']; ?>&etape=etape2&id=<?php echo @$_SESSION['agence_id']; ?>';
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: form.serialize(), // serializes the form's elements.
+                success: function(data)
+                {
+                    jQuery('#reservation').html(data);
+                    //alert(data); // show response from the php script.
+                }
+            });
+    }
     function send1(){
         var url = 'ajax.php?rubrique=<?php echo @$_SESSION['rubrique']; ?>&etape=etape3&id=<?php echo @$_SESSION['ID']; ?>';
             $.ajax({
