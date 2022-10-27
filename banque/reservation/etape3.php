@@ -91,7 +91,7 @@ curl_close($ch);
 
     <div class="d-flex  border-bottom-primary flex-column">
         <?php foreach ($banque_array as $data) {
-            if ($data[id] == $_SESSION['banque_id']) {?>
+            if ($data['id'] == $_SESSION['banque_id']) {?>
             <img class="img-fluid w-50 mx-auto " src="<?php echo $data['logoUrl']; ?>" alt="<?php echo $data['name']; ?>" >
             <span class="h3 text-primary bold mx-auto"><?php echo $data['name']?></span>
         <?php }}?>
@@ -101,7 +101,7 @@ curl_close($ch);
        <div class="py-2 d-flex justify-between"><span class="title h4">Région :</span><span class="content h4">
             <?php
             foreach ($regions_array as $data) {
-                if ($data[id] == $_POST['region']) {?>
+                if ($data['id'] == $_POST['region']) {?>
                     <?php echo $data['name']; 
                 }} 
             ?>
@@ -109,7 +109,7 @@ curl_close($ch);
             <div class="py-2"><span class="title h4 ">Agence :</span><span class="content h4">
             <?php
             foreach ($agences_array as $data) {
-                if ($data[id] == $_POST['agence']) {?>
+                if ($data['id'] == $_POST['agence']) {?>
                     <?php echo $data['name']; 
                 }} 
             ?>

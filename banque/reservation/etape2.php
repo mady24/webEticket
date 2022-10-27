@@ -98,9 +98,9 @@
                 <option value="0">...</option>
                 <?php
             foreach($regions_array as $ID => $tb){
-                if($tb[id] == $_POST['region'])
-                echo "<option selected value='".$tb[id]."'>".$tb[name]."</option>";
-                else echo "<option value='".$tb[id]."'>".$tb[name]."</option>";
+                if($tb['id'] == $_POST['region'])
+                echo "<option selected value='".$tb['id']."'>".$tb['name']."</option>";
+                else echo "<option value='".$tb['id']."'>".$tb['name']."</option>";
                 
             }
 
@@ -114,9 +114,9 @@
             <option value="0">...</option>
             <?php
             foreach($agences_array as $ID => $tb){
-                if($tb[id] == $_POST['agence'])
-                echo "<option selected value='".$tb[id]."'>".$tb[name]."</option>";
-                else echo "<option value='".$tb[id]."'>".$tb[name]."</option>";
+                if($tb['id'] == $_POST['agence'])
+                echo "<option selected value='".$tb['id']."'>".$tb['name']."</option>";
+                else echo "<option value='".$tb['id']."'>".$tb['name']."</option>";
                 
             }
             ?>
@@ -128,9 +128,9 @@
         <option selected>Caisse</option>
         <?php
             foreach($service_array as $ID => $tb){
-                if($tb[id] == $_POST['agence'])
-                echo "<option selected value='".$tb[id]."'>".$tb[name]."</option>";
-                else echo "<option value='".$tb[id]."'>".$tb[name];
+                if($tb['id'] == $_POST['agence'])
+                echo "<option selected value='".$tb['id']."'>".$tb['name']."</option>";
+                else echo "<option value='".$tb['id']."'>".$tb['name'];
             }
         ?>
 
