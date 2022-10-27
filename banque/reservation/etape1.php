@@ -50,7 +50,7 @@ echo'<div class="container-fluid bg-light">';
                     $no_images = array("0","1","4","6","9","10","13","14","15","17","18","19");
                 if(!in_array($key,$no_images)){
                     //echo '<a class="col card bg-light m-2 p-1 py-2 d-flex mx-auto flex-column-reverse align-items-center justify-evenly"  href="http://localhost/webEticket/banque/reservation/etape2.php?id='.$value[id].'" ><h4 class="text-white h6 rounded bg-primary p-2 my-1 " >Réserver un ticket</h4> <img src='.$value[logoUrl].' class="img-fluid card-img-top w-75"/></a>';
-                    echo '<a class="col card bg-light m-2 p-1 py-2 d-flex mx-auto flex-column-reverse align-items-center justify-evenly"  onclick="send('.$value['id'].')" ><h4 class="text-white h6 rounded bg-primary p-2 my-1 " >Réserver un ticket</h4> <img src='.$value['logoUrl'].' class="img-fluid card-img-top w-75"/></a>';
+                    echo '<div class="col card bg-light m-2 p-1 py-2 d-flex mx-auto flex-column-reverse align-items-center justify-evenly"  onclick="send('.$value['id'].')" ><h4 class="text-white h6 rounded bg-primary p-2 my-1 " >Réserver un ticket</h4> <img src='.$value['logoUrl'].' class="img-fluid card-img-top w-75"/></div>';
                 }
             }
         }
