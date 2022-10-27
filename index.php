@@ -160,7 +160,7 @@ if(empty($_SESSION))session_start();
             <!-- Sidebar Message -->
             <div class="sidebar-card d-none d-lg-flex">
                 <p class="text-center mb-2"><strong>L'application Mobile</strong> est disponible!</p>
-                <a class="btn btn-dark btn-sm" href="#"><i class="fab fa-google-play fa-fw fa-lg mr-2"></i>Play Store</a>
+                <a class="btn btn-dark btn-sm" href="https://play.google.com/store/apps/details?id=sn.eticket.eticket_client" target="_blank"><i class="fab fa-google-play fa-fw fa-lg mr-2"></i>Play Store</a>
                 <!-- <a class="btn btn-dark btn-sm mt-2 aligne-items-middle" href="#"><i class="fab fa-app-store-ios fa-fw fa-lg mr-2"></i>App Store</a> -->
             </div>
 
